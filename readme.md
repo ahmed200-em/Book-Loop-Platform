@@ -228,7 +228,7 @@ bookloop-platform/
 
 ## Download or clone the project.
 
-## Open the project folder in Visual Studio Code. ## Make sure `index.html`, `style.css`, and `script.js` are in the same folder. ## Install the **Live Server** extension if necessary. ## Right-click `index.html`. ## Select **Open with Live Server**.
+Open the project folder in Visual Studio Code. Make sure `index.html`, `style.css`, and `script.js` are in the same folder. Install the  **Live Server** extension if necessary.  Right-click `index.html`. Select **Open with Live Server**.
 
 The website will open in your browser, where you can create a demo account and explore the interface.
 
