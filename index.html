@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111714" />
+    <title>BookLoop — Exchange stories</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+  <body>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <main id="authScreen" class="auth-screen">
+      <section class="auth-art">
+        <a class="brand brand-light" href="#" aria-label="BookLoop home"
+          ><span class="brand-mark">b.</span><span>bookloop</span></a
+        >
+        <div class="art-copy">
+          <p class="eyebrow">GOOD BOOKS. NEW OWNERS.</p>
+          <h1>Read a story.<br /><em>Pass it on.</em></h1>
+          <p class="art-description">
+            Your next favourite book might be sitting on someone else's shelf.
+            Trade stories, not money.
+          </p>
+          <div class="book-stack" aria-hidden="true">
+            <div class="floating-book book-one">
+              <span>THE<br />ALCHEMIST</span><small>Paulo Coelho</small>
+            </div>
+            <div class="floating-book book-two">
+              <span>Atomic<br />Habits</span><small>James Clear</small>
+            </div>
+            <div class="floating-book book-three">
+              <span>THE<br />HOBBIT</span><small>J.R.R. Tolkien</small>
+            </div>
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+          </div>
+        </div>
+        <div class="art-footer">
+          <span>↗</span> A little more reading. A little less waste.
+        </div>
+      </section>
+
+      <section class="auth-panel">
+        <button
+          id="authThemeToggle"
+          class="theme-toggle auth-theme"
+          type="button"
+          aria-label="Toggle color theme"
+        >
+          ☼ <span>Light mode</span>
+        </button>
+        <div class="auth-card">
+          <div class="mobile-brand">
+            <span class="brand-mark">b.</span><span>bookloop</span>
+          </div>
+          <div class="auth-heading">
+            <p class="eyebrow" id="authEyebrow">WELCOME BACK</p>
+            <h2 id="authTitle">Your next chapter<br />starts here.</h2>
+            <p id="authSubtitle">Sign in to discover books worth passing on.</p>
+          </div>
+          <form id="loginForm" class="auth-form">
+            <label for="loginName">Your name</label>
+            <input
+              id="loginName"
+              name="name"
+              autocomplete="username"
+              placeholder="e.g. Ahmed"
+              required
+            />
+            <label for="loginPassword">Password</label>
+            <input
+              id="loginPassword"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              required
+            />
+            <button class="btn btn-primary btn-full" type="submit">
+              Sign in <span>→</span>
+            </button>
+            <p class="form-note">
+              New to BookLoop?
+              <button type="button" class="text-button" data-auth-mode="signup">
+                Create an account
+              </button>
+            </p>
+            <p class="demo-note">
+              Demo project: accounts are saved only in this browser.
+            </p>
+          </form>
+
+          <form id="signupForm" class="auth-form hidden">
+            <div class="field-grid">
+              <div class="field">
+                <label for="signupName">Full name</label
+                ><input
+                  id="signupName"
+                  name="name"
+                  autocomplete="name"
+                  placeholder="Ahmed El..."
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="signupJob">Job / study</label
+                ><input
+                  id="signupJob"
+                  name="job"
+                  placeholder="Student, designer..."
+                  required
+                />
+              </div>
+            </div>
+            <label for="signupEmail">Email address</label>
+            <input
+              id="signupEmail"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              required
+            />
+            <label for="signupPhone">Phone number</label>
+            <input
+              id="signupPhone"
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              placeholder="+212 6..."
+              required
+            />
+            <label for="signupPassword">Create password</label>
+            <input
+              id="signupPassword"
+              name="password"
+              type="password"
+              autocomplete="new-password"
+              minlength="6"
+              placeholder="At least 6 characters"
+              required
+            />
+            <button class="btn btn-primary btn-full" type="submit">
+              Create account <span>→</span>
+            </button>
+            <p class="form-note">
+              Already a member?
+              <button type="button" class="text-button" data-auth-mode="login">
+                Sign in
+              </button>
+            </p>
+            <p class="demo-note">
+              Use a demo password only. This prototype does not provide secure
+              server authentication.
+            </p>
+          </form>
+        </div>
+        <p class="auth-legal">
+          By continuing, you agree to keep the BookLoop community kind and
+          curious.
+        </p>
+      </section>
+    </main>
+
+    <main id="appScreen" class="app-screen hidden">
+      <aside class="sidebar">
+        <a class="brand" href="#" aria-label="BookLoop home"
+          ><span class="brand-mark">b.</span><span>bookloop</span></a
+        >
+        <div class="side-label">YOUR SPACE</div>
+        <nav class="side-nav">
+          <button class="nav-link active" data-view="discover">
+            <span>⌕</span> Discover books
+          </button>
+          <button class="nav-link" data-view="mybooks">
+            <span>▤</span> My bookshelf
+            <span id="myBooksCount" class="nav-count">0</span>
+          </button>
+          <button class="nav-link" data-view="requests">
+            <span>↔</span> Exchange requests
+            <span id="requestCount" class="nav-count">0</span>
+          </button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-tip">
+            <span class="tip-icon">✳</span
+            ><strong>Stories are better shared.</strong>
+            <p>Give a book a second life and find your next read.</p>
+          </div>
+          <button id="logoutBtn" class="nav-link logout-link">
+            <span>↪</span> Log out
+          </button>
+          <div class="user-mini">
+            <div id="userAvatar" class="avatar">A</div>
+            <div class="user-mini-text">
+              <strong id="sidebarUserName">Reader</strong
+              ><span id="sidebarUserJob">BookLoop member</span>
+            </div>
+            <button
+              id="sidebarThemeToggle"
+              class="mini-theme"
+              aria-label="Toggle theme"
+              type="button"
+            >
+              ◐
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div class="mobile-brand">
+            <span class="brand-mark">b.</span><span>bookloop</span>
+          </div>
+          <div class="breadcrumb">
+            Community <span>/</span>
+            <strong id="breadcrumbCurrent">Discover</strong>
+          </div>
+          <div class="topbar-actions">
+            <span class="online-dot"></span
+            ><span class="community-status">Readers community</span
+            ><button
+              id="topThemeToggle"
+              class="theme-toggle"
+              type="button"
+              aria-label="Toggle color theme"
+            >
+              ☼ <span>Theme</span>
+            </button>
+            <div id="topAvatar" class="avatar small-avatar">A</div>
+          </div>
+        </header>
+
+        <section id="discoverView" class="page-view">
+          <div class="welcome-row">
+            <div>
+              <p class="eyebrow">YOUR COMMUNITY LIBRARY</p>
+              <h1>Find your next <em>favourite.</em></h1>
+              <p class="page-subtitle">
+                Good reads are meant to travel. Find a book, offer a book, start
+                a loop.
+              </p>
+            </div>
+            <button id="openAddBook" class="btn btn-primary">
+              <span>＋</span> List a book
+            </button>
+          </div>
+          <div class="stats-row">
+            <div class="stat-card">
+              <span class="stat-icon green">▤</span>
+              <div>
+                <strong id="totalBooksStat">0</strong
+                ><span>Books to discover</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon gray">↔</span>
+              <div>
+                <strong id="totalRequestsStat">0</strong
+                ><span>Exchange requests</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon pale">✳</span>
+              <div><strong>∞</strong><span>Stories to share</span></div>
+            </div>
+          </div>
+          <div class="section-toolbar">
+            <div>
+              <p class="eyebrow">THE COMMUNITY SHELF</p>
+              <h2>Books looking for a new home</h2>
+            </div>
+            <div class="filters">
+              <label class="search-box"
+                ><span>⌕</span
+                ><input
+                  id="searchInput"
+                  type="search"
+                  placeholder="Search title or author..."
+                  aria-label="Search books" /></label
+              ><select id="categoryFilter" aria-label="Filter by genre">
+                <option value="all">All genres</option>
+                <option>Fiction</option>
+                <option>Fantasy</option>
+                <option>Self-development</option>
+                <option>Science</option>
+                <option>History</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div id="booksGrid" class="books-grid"></div>
+          <div id="emptyDiscover" class="empty-state hidden">
+            <div class="empty-icon">▤</div>
+            <h3>No books found</h3>
+            <p>Try another search, or be the first to list a book.</p>
+            <button class="btn btn-primary" id="emptyAddBook">
+              List a book
+            </button>
+          </div>
+        </section>
+
+        <section id="mybooksView" class="page-view hidden">
+          <div class="welcome-row">
+            <div>
+              <p class="eyebrow">YOUR PERSONAL SHELF</p>
+              <h1>My <em>bookshelf.</em></h1>
+              <p class="page-subtitle">
+                Books you have listed and are ready to exchange.
+              </p>
+            </div>
+            <button id="openAddBook2" class="btn btn-primary">
+              ＋ List a book
+            </button>
+          </div>
+          <div id="myBooksGrid" class="books-grid"></div>
+          <div id="emptyMyBooks" class="empty-state hidden">
+            <div class="empty-icon">＋</div>
+            <h3>Your shelf is waiting</h3>
+            <p>Add a book you are ready to pass on to another reader.</p>
+            <button class="btn btn-primary" id="emptyAddBook2">
+              List your first book
+            </button>
+          </div>
+        </section>
+
+        <section id="requestsView" class="page-view hidden">
+          <div class="welcome-row">
+            <div>
+              <p class="eyebrow">PASSING STORIES ALONG</p>
+              <h1>Exchange <em>requests.</em></h1>
+              <p class="page-subtitle">
+                Keep track of the books you have offered and the readers who are
+                interested.
+              </p>
+            </div>
+          </div>
+          <div id="requestsList" class="requests-list"></div>
+          <div id="emptyRequests" class="empty-state">
+            <div class="empty-icon">↔</div>
+            <h3>No requests yet</h3>
+            <p>
+              When you ask to exchange a book, your requests will show up here.
+            </p>
+            <button class="btn btn-secondary" id="goDiscoverBtn">
+              Explore books
+            </button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div
+      id="bookModal"
+      class="modal-backdrop hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+      <div class="modal book-modal">
+        <button class="modal-close" data-close-modal aria-label="Close details">
+          ×
+        </button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <div
+      id="addBookModal"
+      class="modal-backdrop hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="addBookTitle"
+    >
+      <div class="modal add-modal">
+        <button class="modal-close" data-close-add aria-label="Close form">
+          ×
+        </button>
+        <p class="eyebrow">GIVE A BOOK A NEW CHAPTER</p>
+        <h2 id="addBookTitle">List a book</h2>
+        <p class="modal-subtitle">
+          Add a few details so another reader can discover it.
+        </p>
+        <form id="addBookForm" class="add-book-form">
+          <label for="bookTitle">Book title</label
+          ><input
+            id="bookTitle"
+            name="title"
+            placeholder="e.g. The Alchemist"
+            required
+          />
+          <div class="field-grid">
+            <div class="field">
+              <label for="bookAuthor">Author</label
+              ><input
+                id="bookAuthor"
+                name="author"
+                placeholder="Author's name"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="bookGenre">Genre</label
+              ><select id="bookGenre" name="genre">
+                <option>Fiction</option>
+                <option>Fantasy</option>
+                <option>Self-development</option>
+                <option>Science</option>
+                <option>History</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <label for="bookSummary">Short summary</label
+          ><textarea
+            id="bookSummary"
+            name="summary"
+            rows="3"
+            placeholder="What is this book about? Why did you enjoy it?"
+            required
+          ></textarea>
+          <div class="field-grid">
+            <div class="field">
+              <label for="bookCondition">Condition</label
+              ><select id="bookCondition" name="condition">
+                <option>Very good</option>
+                <option>Like new</option>
+                <option>Good</option>
+                <option>Well loved</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="bookCover">Cover image URL (optional)</label
+              ><input
+                id="bookCover"
+                name="cover"
+                type="url"
+                placeholder="https://..."
+              />
+            </div>
+          </div>
+          <button class="btn btn-primary btn-full" type="submit">
+            Add to community shelf <span>→</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="javascript/script.js"></script>
+  </body>
+</html>
